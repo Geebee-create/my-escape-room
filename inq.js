@@ -1,22 +1,22 @@
-import inquirer from "inquirer";
+import inquirer from 'inquirer';
 
 export async function insertName() {
     let { userInput } = await inquirer.prompt({
-        type: "input",
+        type: 'input',
         name: 'userInput',
         message: 'What is your name?'
-    })
+    });
 
-    return userInput
+    return userInput;
 }
 
 export async function chooseDifficulty() {
     let { userChoice } = await inquirer.prompt({
-        type: "list",
+        type: 'list',
         name: 'userChoice',
         message: 'Choose your difficulty level',
-        choices: ["Easy", "Difficult"]
-    })
-    
-    return userChoice
+        choices: ['Easy', 'Difficult']
+    });
+
+    return userChoice === 'Easy' ? new Easy() : new Difficult();
 }
