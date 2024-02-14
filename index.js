@@ -1,7 +1,7 @@
 import inquirer from 'inquirer';
 // i will need to add chooseDifficulty below 
 // import { insertName, chooseDifficulty } from './inq.js';
-import { insertName, userDirection } from './inq.js';
+import { insertName, userDirection, userDirection2 } from './inq.js';
 // import { Difficulty, Easy, Difficult } from './classes.js';
 
 async function startGame() {
@@ -32,6 +32,17 @@ if(direction === 'To the chamber on your left'){
 }
 }
 
+
+let secondDirection = async () => {
+    console.log('')
+    console.log('Which way do you turn next')
+    let direction = await userDirection()
+    if(direction === ''){
+        console.log('')
+    }else{
+        console.log('')
+    }
+    }
 
 
 

@@ -32,3 +32,13 @@ export let userDirection = async () => {
     return option
 }
 
+export let userDirection2 = async () => {
+    let { option } = await inquirer.prompt({
+        type: 'list',
+        name: 'option',
+        message: '',
+        choices: ['', '']
+    })
+    return option
+}
+
