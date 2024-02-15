@@ -23,25 +23,6 @@ export async function insertName() {
 // return userChoice === 'Easy' ? new Easy() : new Difficult();
 // }
 
-export async function askRestartGame() {
-    const { startGame } = await inquirer.prompt({
-        type: 'confirm',
-        name: 'startGame',
-        message: 'Do you want to restart the game?',
-        default: true,
-
-    });
-
-    return startGame;
-
-} const restart = await askRestartGame();
-if (restart) {
-    await startGame();
-} else {
-    console.log("Thanks for playing!");
-    endGame();
-}
-
 export let userDirection = async () => {
     let { option } = await inquirer.prompt({
         type: 'list',
@@ -75,10 +56,3 @@ export const func = async () => {
     });
     return mathsresult;
 };
-
-
-
-
-
-
-
