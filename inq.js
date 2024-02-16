@@ -11,18 +11,6 @@ export async function insertName() {
     return userInput;
 }
 
-// below commented out until later on...
-// export async function chooseDifficulty() {
-// let { userChoice } = await inquirer.prompt({
-// type: 'list',
-// name: 'userChoice',
-// message: 'Choose your difficulty level',
-// choices: ['Easy', 'Difficult']
-// });
-
-// return userChoice === 'Easy' ? new Easy() : new Difficult();
-// }
-
 export let userDirection = async () => {
     let { option } = await inquirer.prompt({
         type: 'list',
@@ -55,4 +43,28 @@ export const func = async () => {
         choices: ["1", "2"]
     });
     return mathsresult;
+};
+
+export async function askRestartGame() {
+    const { startGame } = await inquirer.prompt({
+        type: 'confirm',
+        name: 'startGame',
+        message: 'Do you want to restart the game?',
+        default: true,
+
+    });
+
+    return startGame;
+};
+
+export async function stealOrNo() {
+    const { jewels } = await inquirer.prompt({
+        type: 'confirm',
+        name: 'jewels',
+        message: 'Do you want to steal the jewels',
+        default: true,
+
+    });
+
+    return jewels;
 };

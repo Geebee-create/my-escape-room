@@ -1,6 +1,7 @@
 import inquirer from 'inquirer';
-import { insertName, userDirection, wordPuzzle, getRandomInt, func } from './inq.js';
+import { insertName, userDirection, wordPuzzle, getRandomInt, func, askRestartGame, stealOrNo } from './inq.js';
 import { endGame } from './functions.js';
+import { Collapse } from './classes.js';
 
 async function startGame() {
     const playerName = await insertName();
@@ -19,11 +20,14 @@ let firstDirection = async () => {
         console.log('You have chosen the chamber to the left.');
         console.log('As you enter the dark chamber, the ground beneath you trembles, and a legion of scarab beetles pours out from hidden crevices. Their sharp pincers close in around you, sealing your fate.');
         console.log('END OF GAME.')
-        console.log("Thanks for playing!");
-        endGame();
-
-
-    } else {
+        const restart = await askRestartGame(); 
+        if (restart) {
+            await startGame(); 
+        } else {
+            console.log("Thanks for playing!");
+            endGame();
+        }
+        } else {
         console.log('You have chosen to brave the cracking ground to the right.');
         console.log('As you take your next step, the ground beneath you trembles and cracks. You take a leap forward just in time, narrowly avoiding a perilous descent. Your heart races as you look back at the dark chasm that could have been your fate');
     }
@@ -46,9 +50,14 @@ let secondDirection = async () => {
         console.log("You have not correctly chosen the safe entrance.");
         console.log('As you enter the chamber, you are startled by the sudden appearance of a horrifying mummy! Before you can react, it grabs you, and... BOO! You have been scared to death!');
         console.log('END OF GAME.')
-        console.log("Thanks for playing!");
-        endGame();
-
+        const restart = await askRestartGame(); 
+        if (restart) {
+            await startGame(); 
+        } else {
+            console.log("Thanks for playing!");
+            endGame();
+        }
+        
     }
 
     await thirdDirection();
@@ -68,11 +77,43 @@ let thirdDirection = async () => {
         console.log('As you press the square, the ground begins to shake. Have you chosen the wrong square?');
         console.log('The ground shakes beneath you, and with a deafening roar, the floor collapses into an inescapable trap.')
         console.log('END OF GAME')
-        console.log("Thanks for playing!");
-        endGame();
+        const restart = await askRestartGame(); 
+        if (restart) {
+            await startGame(); 
+        } else {
+            console.log("Thanks for playing!");
+            endGame();
+        }
     }
+    await fourthDirection();
 }
 
+let fourthDirection = async () => {
+    console.log('');
+    console.log('')
+
+    let { jewels } = await stealOrNo();
+
+    if ( jewels ) {
+        console.log("yup we taken these jewels")
+    } else {
+        console.log("you are cursed");
+        console.log('END OF GAME')
+        const restart = await askRestartGame(); 
+        if (restart) {
+            await startGame(); 
+        } else {
+            console.log("Thanks for playing!");
+            endGame();
+        }
+    }
+    await fifthDirection();
+}
+
+let fifthDirection = async() => {
+    let danger = new Collapse
+    console.log()
+}
 
 (async () => {
     await startGame();
