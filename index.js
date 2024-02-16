@@ -88,17 +88,19 @@ let thirdDirection = async () => {
     await fourthDirection();
 }
 
-// CURRENTLY FINISHED UP TO THIS POINT. I'M STILL WORKING ON THE PARTS BELOW :)
+// CURRENTLY FINISHED UP TO THIS POINT. I STILL NEED TO ADD TO THE PARTS BELOW :)
 
+// reword messages for below 
 let fourthDirection = async () => {
     console.log('');
     console.log('')
 
     let { jewels } = await stealOrNo();
 
-    if (jewels) {
-        console.log("yup we taken these jewels")
+    if (jewels === "no") {
+        console.log("you did the right thing");
     } else {
+        console.log("yup we taken these jewels")
         console.log("you are cursed");
         console.log('END OF GAME')
         const restart = await askRestartGame();
@@ -109,22 +111,23 @@ let fourthDirection = async () => {
             endGame();
         }
     }
-    await collapseInstance();
+    await fifthDirection();
 }
 
 
-let collapseInstance = new Collapse(); 
-
+    
+// this isn't running properly 
     let fifthDirection = async () => {
+        new Collapse(); 
     let { scrollOption } = await scrollChoice();
 
     if (scrollOption === "I choose to race against time to grab the scroll") {
-        console.log(deathText)
+        console.log(Collapse.deathText)
     } else {
-        console.log(aliveText);
+        console.log(Collapse.aliveText)
       
     }
-    await fifthDirection();
+
 }
 
 

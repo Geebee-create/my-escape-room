@@ -58,11 +58,11 @@ export async function askRestartGame() {
 };
 
 export async function stealOrNo() {
-    const { jewels } = await inquirer.prompt({
-        type: 'confirm',
+   let jewels = await inquirer.prompt({
+        type: 'list',
         name: 'jewels',
         message: 'Do you want to steal the jewels',
-        default: true,
+       choices: ["yes", "no"]
 
     });
 
