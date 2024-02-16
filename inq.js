@@ -68,3 +68,13 @@ export async function stealOrNo() {
 
     return jewels;
 };
+
+export let scrollChoice = async () => {
+    let scrollOption = await inquirer.prompt({
+        type: "list",
+        name: 'scrollOption',
+        message: "Do you choose to grab the scroll?",
+        choices: ["I choose to race against time to grab the scroll", "I would rather ensure my safety and not reach for the scroll"]
+    });
+        return scrollOption
+};
