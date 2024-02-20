@@ -1,7 +1,8 @@
 import inquirer from 'inquirer';
-import { insertName, userDirection, wordPuzzle, getRandomInt, func, askRestartGame, stealOrNo, scrollChoice } from './inq.js';
+import { insertName, userDirection, wordPuzzle, getRandomInt, func, askRestartGame, stealOrNo, riddleChallenge } from './inq.js';
 import { endGame } from './functions.js';
-import { Collapse } from './classes.js';
+import { Curse } from './classes.js';
+
 
 async function startGame() {
     const playerName = await insertName();
@@ -9,6 +10,7 @@ async function startGame() {
 
     await firstDirection();
 }
+
 
 let firstDirection = async () => {
     console.log('You are an archaeologist searching for the undiscovered tomb of Nefertiti. During your search of subterranean tunnels, in the depths of The Valley of The Kings, you realize you are lost. Will you be able to find an exit?');
@@ -29,7 +31,7 @@ let firstDirection = async () => {
         }
     } else {
         console.log('You have chosen to brave the cracking ground to the right.');
-        console.log('As you take your next step, the ground beneath you trembles and cracks. You take a leap forward just in time, narrowly avoiding a perilous descent. Your heart races as you look back at the dark chasm that could have been your fate');
+        console.log('As you take your next step, the ground beneath you trembles and cracks. You take a leap forward just in time, narrowly avoiding a perilous descent. Your heart races as you look back at the dark chasm that could have been your fate.');
     }
 
     await secondDirection();
@@ -37,7 +39,7 @@ let firstDirection = async () => {
 
 
 let secondDirection = async () => {
-    console.log('Ahead of you are the doors to two different chambers. Above the doors "Death is but the doorway to new life" is painted in hieroglyphs. You are scared to enter either door. They seem identical and you need to make a random decision. But can you make the correct decision? Do you choose entrance 1 or entrance 2?');
+    console.log('Ahead of you are the doors to two different chambers. Above the doors, "Death is but the doorway to new life" is painted in hieroglyphs. You are scared to enter either door. They seem identical and you need to make a random decision. But can you make the correct decision? Do you choose entrance 1 or entrance 2?');
 
 
     let playerChoice = await func();
@@ -65,16 +67,16 @@ let secondDirection = async () => {
 
 
 let thirdDirection = async () => {
-    console.log('As you continue ahead, your torchlight illumiates a large, forboding doorway made of stone. On the doors surface are squares. Each square depicts an Ancient Egyptian proverb in hyraglifs. You are able to translate the hyroglifs, and you need to decide which square to press');
-    console.log('Can you remember which you also saw painted on a wall earlier?')
+    console.log('As you continue ahead, your torchlight illumiates a large, forboding doorway made of stone. On the doors surface are squares. Each square depicts an Ancient Egyptian proverb in hieroglyphs. You are able to translate them, and you need to decide which square to press.');
+    console.log('Can you remember which one of the proverbs you also saw painted on a wall earlier?')
 
     let { option2 } = await wordPuzzle();
 
     if (option2 === "Death is but the doorway to new life") {
-        console.log('Phew! You have chosen the correct message');
+        console.log('Phew! You have chosen the correct proverb.');
         console.log('With a low, echoing rumble, the massive door begins to creak open, revealing the secrets that lie beyond. ');
     } else {
-        console.log('As you press the square, the ground begins to shake. Have you chosen the wrong square?');
+        console.log('As you press the square, the ground begins to shake. Have you chosen the wrong proverb?');
         console.log('The ground shakes beneath you, and with a deafening roar, the floor collapses into an inescapable trap.')
         console.log('END OF GAME')
         const restart = await askRestartGame();
@@ -88,20 +90,55 @@ let thirdDirection = async () => {
     await fourthDirection();
 }
 
-// CURRENTLY FINISHED UP TO THIS POINT. I STILL NEED TO ADD TO THE PARTS BELOW :)
 
-// reword messages for below 
 let fourthDirection = async () => {
-    console.log('');
-    console.log('')
+    console.log("Amidst hundreds of golden treasures, Nefertiti's mummy lies cold, adorned with a golden necklace bearing her name in sacred hieroglyphs. Rings of unparalleled beauty grace her fragile hands.");
+    console.log("The jewels are hard to resist. You need to make a decision. Are you going to steal the jewels or not?")
 
     let { jewels } = await stealOrNo();
 
-    if (jewels === "no") {
-        console.log("you did the right thing");
+    if (jewels === "No, stealing the jewels feels like a really bad idea.") {
+        console.log("Phew. You did the right thing. Who knows? You could have been cursed or awoken Nefertiti's mummy!");
     } else {
-        console.log("yup we taken these jewels")
-        console.log("you are cursed");
+        console.log("Yes! Gimme gimme gimme!")
+
+
+        const ancientCurse = new Curse('Ancient Curse');
+
+        console.log(`Uh oh! ${ancientCurse.getDescription()}. All of the life drains from you in a matter of seconds. As the darkness falls in on you, it looks like you are going to be in the company of Nefertiti's mummy for a long, long time!`);
+        console.log('END OF GAME');
+
+        const restart = await askRestartGame();
+        if (restart) {
+            await startGame();
+        } else {
+            console.log("Thanks for playing!");
+            endGame();
+        }
+    }
+    await rPuzzle();
+}
+
+
+let rPuzzle = async () => {
+    console.log("One of the walls of Nefertit's tomb features an awe inspiring door of solid gold. It displays a riddle in hieroglyphs with potential answers engraved into large squares. The air thickens with mystery, and a message whispers into your consciousness: 'Decode the riddle, unravel the secrets, for beyond this door,the mysteries of Ancient Egypt lie in wait.")
+    let { theriddle } = await riddleChallenge();
+
+    if (theriddle === "Echo") {
+        console.log("")
+        console.log("As your intellect triumphs over ancient enigma, the air crackles with energy. The colossal gold door creaks open, revealing a grand library bathed in ethereal light. Amongst the scrolls you find a map with directions to a nearby exit.")
+        console.log("You step into the light of the outside world with a wealth of knowledge, fame and riches before you.")
+        console.log("CONGRATS! YOU WON THE GAME!")
+        const restart = await askRestartGame();
+        if (restart) {
+            await startGame();
+        } else {
+            console.log("Thanks for playing!");
+            endGame();
+        }
+    } else {
+        console.log("Ooops, it looks like you got the riddle wrong.")
+        console.log("As you stand upon the precipice of discovery, the ground crumbles beneath your feet, plunging you into an endless abyss. No one will ever know of your incredible discovery.")
         console.log('END OF GAME')
         const restart = await askRestartGame();
         if (restart) {
@@ -111,23 +148,6 @@ let fourthDirection = async () => {
             endGame();
         }
     }
-    await fifthDirection();
-}
-
-
-    
-// this isn't running properly 
-    let fifthDirection = async () => {
-        new Collapse(); 
-    let { scrollOption } = await scrollChoice();
-
-    if (scrollOption === "I choose to race against time to grab the scroll") {
-        console.log(Collapse.deathText)
-    } else {
-        console.log(Collapse.aliveText)
-      
-    }
-
 }
 
 

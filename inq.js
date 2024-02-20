@@ -11,6 +11,7 @@ export async function insertName() {
     return userInput;
 }
 
+
 export let userDirection = async () => {
     let { option } = await inquirer.prompt({
         type: 'list',
@@ -20,6 +21,7 @@ export let userDirection = async () => {
     })
     return option
 }
+
 
 export let wordPuzzle = async () => {
     let option2 = await inquirer.prompt({
@@ -36,6 +38,7 @@ export function getRandomInt(max) {
     return Math.floor(Math.random() * max) + 1;
 }
 
+
 export const func = async () => {
     const { mathsresult } = await inquirer.prompt({
         name: "mathsresult",
@@ -44,6 +47,7 @@ export const func = async () => {
     });
     return mathsresult;
 };
+
 
 export async function askRestartGame() {
     const { startGame } = await inquirer.prompt({
@@ -57,24 +61,27 @@ export async function askRestartGame() {
     return startGame;
 };
 
-export async function stealOrNo() {
-   let jewels = await inquirer.prompt({
+
+export let stealOrNo = async () => {
+    let jewels = await inquirer.prompt({
         type: 'list',
         name: 'jewels',
         message: 'Do you want to steal the jewels',
-       choices: ["yes", "no"]
+        choices: ["Yes! gimme gimme gimme!", "No, stealing the jewels feels like a really bad idea."]
 
     });
 
     return jewels;
 };
 
-export let scrollChoice = async () => {
-    let scrollOption = await inquirer.prompt({
-        type: "list",
-        name: 'scrollOption',
-        message: "Do you choose to grab the scroll?",
-        choices: ["I choose to race against time to grab the scroll", "I would rather ensure my safety and not reach for the scroll"]
+
+export let riddleChallenge = async () => {
+    let theriddle = await inquirer.prompt({
+        type: 'list',
+        name: 'theriddle',
+        message: 'Can you solve this riddle? I speak without a mouth and hear without ears. I have no body, but I come alive with the wind. What am I?',
+        choices: ["Shadow", "Echo", "Breath", "Rain", "Sand"]
     });
-        return scrollOption
+
+    return theriddle;
 };
